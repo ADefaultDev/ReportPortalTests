@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ui.utils.Config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
@@ -39,10 +38,9 @@ public abstract class BaseTest {
      *     <li>Разворачивает окно браузера на весь экран.</li>
      * </ul>
      *
-     * @throws IOException если не удалось загрузить файл конфигурации.
      */
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() {
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));

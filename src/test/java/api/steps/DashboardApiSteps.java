@@ -3,13 +3,10 @@ package api.steps;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Класс шагов API для управления Dashboard.
@@ -56,25 +53,6 @@ public class DashboardApiSteps {
     }
 
     /**
-     * Проверка, что Dashboard с заданным именем существует в списке.
-     *
-     * @param dashboardName имя проверяемого Dashboard
-     */
-    @Step("Проверить, что Dashboard {dashboardName} существует в списке")
-    public void verifyDashboardExists(String dashboardName) {
-        List<Map<String, Object>> dashboards = given()
-                .header("Authorization", "Bearer " + token)
-                .when()
-                .get("/v1/" + projectName + "/dashboard")
-                .then()
-                .statusCode(200)
-                .extract().jsonPath().getList("content");
-
-        boolean found = dashboards.stream().anyMatch(d -> dashboardName.equals(d.get("name")));
-        assertTrue(found, "Созданный Dashboard должен присутствовать в списке");
-    }
-
-    /**
      * Попытка создать Dashboard без обязательных параметров (негативный сценарий).
      * <p>
      * Проверяется, что API возвращает код ошибки 400.
@@ -92,12 +70,12 @@ public class DashboardApiSteps {
     }
 
     /**
-     * Проверка, что Dashboard с заданным именем отсутствует в списке.
-     *
-     * @param dashboardName имя Dashboard, которого не должно быть в списке
+     * Возвращает список dashboard на странице.
+     * <p>
+     * @return List - список dashboard.
      */
-    @Step("Проверка, что Dashboard с именем '{dashboardName}' отсутствует в списке")
-    public void verifyDashboardNotExists(String dashboardName) {
+    @Step("Получить список Dashboard")
+    public List<Map<String, Object>> getDashboards() {
         Response response = given()
                 .header("Authorization", "Bearer " + token)
                 .when()
@@ -106,10 +84,6 @@ public class DashboardApiSteps {
                 .statusCode(200)
                 .extract().response();
 
-        List<Map<String, Object>> dashboards = response.jsonPath().getList("content");
-        boolean found = dashboards.stream()
-                .anyMatch(d -> dashboardName.equals(d.get("name")));
-
-        assertFalse(found, "Некорректный Dashboard не должен существовать в списке");
+        return response.jsonPath().getList("content");
     }
 }

@@ -9,6 +9,11 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
 import api.steps.DashboardApiSteps;
 
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Набор API-тестов для управления Dashboard в Report Portal.
  * <p>
@@ -53,6 +58,12 @@ public class CreateDashboardTest extends BaseApiTest {
         DashboardApiSteps steps = new DashboardApiSteps(token, projectName);
 
         steps.createDashboard(dashboardName);
-        steps.verifyDashboardExists(dashboardName);
+
+        List<Map<String, Object>> dashboards = steps.getDashboards();
+
+        boolean found = dashboards.stream()
+                .anyMatch(d -> dashboardName.equals(d.get("name")));
+
+        assertTrue(found, "Созданный Dashboard должен присутствовать в списке");
     }
 }

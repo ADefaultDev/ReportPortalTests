@@ -1,6 +1,5 @@
 package api.tests;
 
-
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -9,6 +8,11 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
 import api.steps.DashboardApiSteps;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Негативный тест для проверки функционала создания Dashboard через API с недостаточными параметрами.
@@ -48,6 +52,12 @@ public class CreateDashboardNegativeTest extends BaseApiTest {
         DashboardApiSteps steps = new DashboardApiSteps(token, projectName);
 
         steps.createDashboardWithMissingParams();
-        steps.verifyDashboardNotExists(dashboardName);
+
+        List<Map<String, Object>> dashboards = steps.getDashboards();
+
+        boolean found = dashboards.stream()
+                .anyMatch(d -> dashboardName.equals(d.get("name")));
+
+        assertFalse(found, "Некорректный Dashboard не должен существовать в списке");
     }
 }

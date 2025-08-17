@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.12.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    javaVersion = '17'
+    seleniumVersion = '4.23.0'
+    restAssuredVersion = '5.4.0'
+    junitVersion = '5.11.0'
+    allureVersion = '2.29.1'
+    allureSeleniumVersion = '2.29.1'
+    webDriverManagerVersion = '6.1.0'
+    jacksonVersion = '2.17.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+    }
+}
+
+dependencies {
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "io.qameta.allure:allure-junit5:${allureVersion}"
+    testImplementation "io.github.bonigarcia:webdrivermanager:${webDriverManagerVersion}"
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "allure.results.directory", "allure-results"
+}
+
+allure {
+    version = allureVersion
+}

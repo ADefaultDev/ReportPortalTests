@@ -9,7 +9,7 @@
      └── java
          ├── api
          │   ├── steps           # Шаги для API-тестов
-         │   └── tests           # API-тесты (создание дашборда и др.)
+         │   └── tests           # API-тесты (создание дашборда)
          └── ui
              ├── pages           # Page Object классы (LoginPage, DashboardPage)
              ├── steps           # Шаги для UI-тестов
@@ -47,19 +47,19 @@ api.token требуется создать самостоятельно, пом
 ### Запуск всех тестов
 
 ``` bash
-mvn clean test
+./gradlew clean test
 ```
 
 ### Запуск только API-тестов
 
 ``` bash
-mvn -Dtest=api.tests.* test
+./gradlew test --tests "api.tests.*"
 ```
 
 ### Запуск только UI-тестов
 
 ``` bash
-mvn -Dtest=ui.tests.* test
+./gradlew test --tests "ui.tests.*"
 ```
 
 ## Отчеты
@@ -69,7 +69,7 @@ mvn -Dtest=ui.tests.* test
 -   **Allure**:
 
     ``` bash
-    allure serve target/allure-results
+    ./gradlew allureServe
     ```
 
 -   **ReportPortal**: результаты отправляются автоматически (если

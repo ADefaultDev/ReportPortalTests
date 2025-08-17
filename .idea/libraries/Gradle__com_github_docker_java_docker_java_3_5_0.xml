@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.docker-java:docker-java:3.5.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.github.docker-java" artifactId="docker-java" version="3.5.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/gradle-8.11-bin/gradle-8.11/bin/caches/modules-2/files-2.1/com.github.docker-java/docker-java/3.5.0/8dffe9792c9820a08ca04e718faa0c54cbba5848/docker-java-3.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

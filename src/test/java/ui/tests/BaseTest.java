@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ui.utils.Config;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
